@@ -35,7 +35,9 @@ EXTRA_FILES = LICENSE README.md
 # Tool configuration
 
 DEFINES := $(DEFINES) -DGAME_H="\"$(GAME_H)\""
-CFLAGS := $(CFLAGS) -ffunction-sections -fdata-sections -Werror -Wall -Wextra -Wconversion
+# pin C++17: project targets C++14+, and C++20 makes wswrap's implicit [ = ]
+# this-capture (via [=]) a deprecation error under -Werror
+CFLAGS := $(CFLAGS) -std=c++17 -ffunction-sections -fdata-sections -Werror -Wall -Wextra -Wconversion
 LDFLAGS:= $(LDFLAGS) -Wl,--gc-sections
 # TODO: -Wl,-dead_strip instead of -Wl,--gc-sections on macos
 
